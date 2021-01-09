@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="dashboard :: head">
+
+
+</head>
+<body>
+<header th:replace="dashboard :: header"></header>
+  <main class="pt-5 mx-lg-5">
+    <div class="container-fluid mt-5">
+    <div class="card text-center">
+  <div class="card-header" th:text="${cliente.id}"></div>
+  <div class="card-body">
+    
+    <p class="card-text" >
+     Nombre: <span th:text="${cliente.nombre}"></span>
+    </p>
+     <p class="card-text" >
+     Apellidos: <span th:text="${cliente.apellidos}"></span>
+    </p>
+     <p class="card-text" >
+     Documento: <span th:text="${cliente.documento}"></span>
+    </p>
+     <p class="card-text" >
+     Dirección: <span th:text="${cliente.direccion}"></span>
+    </p>
+     <p class="card-text" >
+     Telefono: <span th:text="${cliente.telefono}"></span>
+    </p>
+    <a th:href="@{/clientes}" class="btn btn-danger">Volver</a>
+  </div>
+
+</div>
+    </div>
+    </main>
+
+</body>
+</html>

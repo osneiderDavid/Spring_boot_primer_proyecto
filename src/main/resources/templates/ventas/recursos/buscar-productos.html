@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+	<script type="text/javascript" th:fragment="javascript">
+	$(document).ready(function(){
+		$("#buscar-producto").autocomplete({
+			source : function(request, response) {
+				$.ajax({
+					url : "/buscar-productos/" + request.term,
+					dataType : "json",
+					data : {
+						term : request.term
+					},
+					success : function(data) {
+						response($.map(data, function(item) {
+							return {
+								value : item.id,
+								label : item.nombre,
+								precio : item.precio,
+							};
+						}));
+					},
+				});
+			},
+			select: function(event, ui){
+				//$("#buscar-producto").val(ui.item.label);
+				if(itemSubtotal.buscoProducto(ui.item.value)){
+					itemSubtotal.incrementaCantidad(ui.item.value, ui.item.precio);
+					return false;
+				}
+			var venta = $("#itemsVentas").html();
+            venta = venta.replace(/{ID}/g, ui.item.value);
+			venta = venta.replace(/{NOMBRE}/g, ui.item.label);
+			venta = venta.replace(/{PRECIO}/g, ui.item.precio);
+
+			$("#cargarItemProductos tbody").append(venta);
+			itemSubtotal.calcularSubtotal(ui.item.value, ui.item.precio, 1);
+				return false;
+			}
+		});
+		$("form").submit(function(){
+			$("#itemsVentas").remove();
+			return;
+		});
+	}
+	);
+	var itemSubtotal = {
+			calcularSubtotal: function(id, precio, cantidad){
+				$("#total_subtotal_" + id).html(parseInt(precio) * parseInt(cantidad));
+				this.calcularTotal();
+			}, 
+			buscoProducto:function(id){
+				var respuesta = false;
+				$('input[name="item_id[]"]').each(function(){
+				if(parseInt(id) == parseInt($(this).val())){
+					respuesta=true;
+				}	
+				});
+				return respuesta;
+			},
+			incrementaCantidad: function(id, precio){
+				var cantidad = $("#cantidad_"+id).val() ? parseInt($("#cantidad_"+id).val()):0;
+				$("#cantidad_"+id).val(++cantidad);
+				this.calcularSubtotal(id, precio, cantidad);
+			}, 
+			eliminarProducto:function(id){
+				$("#row_"+id).remove();
+				this.calcularTotal();
+			},
+			calcularTotal:function(){
+				var total=0;
+				$('span[id^="total_subtotal_"]').each(function(){
+					total+=parseInt($(this).html());
+				});
+				$("#total").html(total);
+			}
+	}
+	
+</script>
+</body>
+</html>

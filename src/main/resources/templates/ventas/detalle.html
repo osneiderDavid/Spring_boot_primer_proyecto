@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="dashboard :: head">
+
+</head>
+<body>
+	<header th:replace="dashboard :: header"></header>
+	<main class="pt-5 mx-lg-5">
+	<div class="container-fluid mt-5">
+	<div class="card ">
+	  <div class="card-body d-sm-flex justify-content-between">
+
+          <div class="mb-2 mb-sm-0 pt-1">
+           <div class="card-header ">Número Venta: <span th:text="${venta.id}"></span></div>
+          </div>
+<a th:href="@{/ventas}" class="btn btn-danger btn-sm">Volver</a>
+        </div>
+ 
+  
+  <div class="card-body my-2">
+    <h5 class="card-title">Datos del cliente</h5>
+    <h5 class="card-text">Nombre Completo: <span th:text="${venta.cliente}"></span></h5>
+    <h5 class="card-text">Dirección: <span th:text="${venta.cliente.direccion}"></span></h5>
+    <h5 class="card-text">Telefono: <span th:text="${venta.cliente.telefono}"></span></h5>
+  
+    
+  </div>
+  <hr>
+  <div class="card-body my-2">
+  <h5 class="card-title">Datos de la venta</h5>
+    <h5 class="card-text">Fecha: <span th:text="${venta.fecha}"></span></h5>
+    <h5 class="card-text">Total: <span th:text="${venta.total}"></span></h5>
+    
+  </div>
+  <div class="card-footer text-muted">
+  <table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Producto</th>
+      <th scope="col">Precio</th>
+      <th scope="col">Cantidad</th>
+      <th scope="col">SubTotal</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr th:each="deta : ${venta.detalle}">
+      <td th:text="${deta.producto.nombre}"></td>
+      <td th:text="${deta.producto.precio}"></td>
+      <td th:text="${deta.cantidad}"></td>
+      <td th:text="${deta.CalcularTotal}"></td>
+    </tr>
+   
+   
+  </tbody>
+</table>
+  </div>
+</div>
+	</div>
+	</main>
+
+</body>
+</html>

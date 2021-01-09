@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="dashboard :: head">
+
+</head>
+<body>
+	<header th:replace="dashboard :: header"></header>
+	<main class="pt-5 mx-lg-5">
+	<div class="container-fluid mt-5">
+	<div th:replace="alertas :: alerta"></div>
+
+		<div class="card-body d-sm-flex justify-content-between">
+			<div class="container w-100">
+				<form th:action="@{/venta/save}"  th:object="${venta}" method="post">
+
+				
+					<div class="form-group row">
+
+
+						<label class="col-sm-2 col-form-label">Datos del Cliente</label>
+						<div class="col-sm-6">
+						<input type="hidden" th:value="${venta.cliente.id}" th:field="*{cliente}">
+							<input name="cliente" th:value="${venta.cliente.nombre} + ' ' + ${venta.cliente.apellidos}"
+								class="form-control" disabled='disabled' />
+						</div>
+					</div>
+
+
+
+					<div class="form-group row">
+						<label for="buscar_producto" class="col-sm-2 col-form-label">Producto</label>
+						<div class="col-sm-6">
+							<input type="text" name="buscar-producto" id="buscar-producto"
+								class="form-control" />
+						</div>
+					</div>
+
+
+
+					<table th:replace="ventas/ventas-items:: itemsFactura"></table>
+
+					<table id="cargarItemProductos"
+						class="table table-sm table-hover">
+						<thead >
+							<tr>
+								<th>Nombre</th>
+								<th>Precio</th>
+								<th>Cantidad</th>
+								<th>SubTotal</th>
+								<th>Accion</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+					 <div class="card-body d-sm-flex justify-content-between">
+
+          <div class="mb-2 mb-sm-0 pt-1">
+         <button type="submit" class="btn btn-primary">Guardar Venta</button>
+          </div>
+
+          <div class="d-flex justify-content-center">
+            <!-- Default input -->
+           <h3>Total: <span class="text-primary" id="total">0</span></h3>
+           
+
+          </div>
+
+        </div>
+					
+				</form>
+
+			</div>
+
+		</div>
+	</div>
+	</main>
+	<footer th:replace="dashboard :: footer"></footer>
+	<script th:replace="ventas/recursos/buscar-productos :: javascript"></script>
+</body>
+</html>

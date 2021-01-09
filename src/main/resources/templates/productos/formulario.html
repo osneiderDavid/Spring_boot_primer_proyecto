@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="dashboard :: head">
+
+</head>
+<body>
+	<header th:replace="dashboard :: header"></header>
+	<main class="pt-5 mx-lg-5">
+	<div class="container-fluid mt-5">
+	<h4 class="text-center" th:if="${producto.id == null}">Agregar Cliente</h4>
+	<h4 class="text-center" th:unless="${producto.id == null}">Editar Cliente</h4>
+	  <div class="card-body d-sm-flex justify-content-between">
+	  <div class="container w-100">
+	  <form th:action="@{/productos/guardar}" th:object="${producto}" method="post">
+	  <input type="hidden" th:field="*{id}" th:value="${producto.id}"> 
+  <!-- 2 column grid layout with text inputs for the first and last names -->
+  <div class="row mb-4">
+    <div class="col">
+      <div class="form-outline">
+      <label class="form-label" for="form3Example1">Nombre</label>
+        <input type="text" id="form3Example1" class="form-control" th:field="*{nombre}"/>
+        
+      </div>
+    </div>
+    <div class="col">
+      <div class="form-outline">
+      <label class="form-label" for="form3Example2">Precio</label>
+        <input type="text" id="form3Example2" class="form-control" th:field="*{precio}"/>
+        
+      </div>
+    </div>
+  </div>
+<div class="row mb-4">
+    <div class="col">
+  <!-- Email input -->
+  <div class="form-outline mb-4">
+  <label class="form-label" for="form3Example3">Cantidad</label>
+    <input type="text" id="form3Example3" class="form-control" th:field="*{cantidad}"/>
+    
+  </div>
+</div>
+<div class="col">
+  <!-- Password input -->
+  <div class="form-outline mb-4">
+    <label class="form-label" for="form3Example4">Descripcion</label>
+    
+    <textarea rows="" cols="" th:field="*{descripcion}" class="form-control">
+    </textarea>
+  
+  
+  </div>
+  </div>
+</div>
+<div class="form-outline mb-4">
+<label class="form-label" for="form3Example4">Categoria</label>
+    <select class="form-control" th:field="*{categoria}">
+    <th:block th:each="cate : ${categorias}">
+    <option th:value="${cate.id}" th:text="${cate.nombre}"></option>
+    </th:block>
+    </select>
+    
+  </div>
+  <!-- Checkbox -->
+
+
+  <!-- Submit button -->
+  <button type="submit" class="btn btn-primary btn-block mb-4" th:if="${producto.id == null}">Agregar</button>
+   <button type="submit" class="btn btn-primary btn-block mb-4" th:unless="${producto.id == null}">Editar</button>
+
+  <!-- Register buttons -->
+  
+</form>
+	  </div>
+	  
+	  </div>
+	</div>
+	</main>
+	<div th:replace="dashboard :: script"></div>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="dashboard :: head">
+
+
+</head>
+<body>
+<header th:replace="dashboard :: header"></header>
+  <main class="pt-5 mx-lg-5">
+    <div class="container-fluid mt-5">
+    <div class="card text-center">
+  <div class="card-header" th:text="${producto.id}"></div>
+  <div class="card-body">
+    
+    <p class="card-text" >
+     Nombre: <span th:text="${producto.nombre}"></span>
+    </p>
+     <p class="card-text" >
+     Precio: <span th:text="${producto.precio}"></span>
+    </p>
+     <p class="card-text" >
+     Cantidad: <span th:text="${producto.cantidad}"></span>
+    </p>
+     <p class="card-text" >
+     Descripción: <span th:text="${producto.descripcion}"></span>
+    </p>
+     <p class="card-text" >
+     Categorias: <span th:text="${producto.categoria.nombre}"></span>
+    </p>
+    <a th:href="@{/productos}" class="btn btn-danger">Volver</a>
+  </div>
+
+</div>
+    </div>
+    </main>
+
+</body>
+</html>

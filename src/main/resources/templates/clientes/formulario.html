@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="dashboard :: head">
+
+</head>
+<body>
+	<header th:replace="dashboard :: header"></header>
+	<main class="pt-5 mx-lg-5">
+	<div class="container-fluid mt-5">
+	<h4 class="text-center" th:if="${cliente.id == null}">Agregar Cliente</h4>
+	<h4 class="text-center" th:unless="${cliente.id == null}">Editar Cliente</h4>
+	  <div class="card-body d-sm-flex justify-content-between">
+	  <div class="container w-100">
+	  <form th:action="@{/clientes/guardar}" th:object="${cliente}" method="post">
+	  <input type="hidden" th:field="*{id}" th:value="${cliente.id}"> 
+  <!-- 2 column grid layout with text inputs for the first and last names -->
+  <div class="row mb-4">
+    <div class="col">
+      <div class="form-outline">
+      <label class="form-label" for="form3Example1">Nombre</label>
+        <input type="text" id="form3Example1" class="form-control" th:field="*{nombre}"/>
+        
+      </div>
+    </div>
+    <div class="col">
+      <div class="form-outline">
+      <label class="form-label" for="form3Example2">Apellido(s)</label>
+        <input type="text" id="form3Example2" class="form-control" th:field="*{apellidos}"/>
+        
+      </div>
+    </div>
+  </div>
+<div class="row mb-4">
+    <div class="col">
+  <!-- Email input -->
+  <div class="form-outline mb-4">
+  <label class="form-label" for="form3Example3">Documento</label>
+    <input type="text" id="form3Example3" class="form-control" th:field="*{documento}"/>
+    
+  </div>
+</div>
+<div class="col">
+  <!-- Password input -->
+  <div class="form-outline mb-4">
+    <label class="form-label" for="form3Example4">Telefono</label>
+    <input type="text" id="form3Example4" class="form-control" th:field="*{telefono}"/>
+  
+  
+  </div>
+  </div>
+</div>
+<div class="form-outline mb-4">
+<label class="form-label" for="form3Example4">Direccion</label>
+    <input type="text" id="form3Example4" class="form-control" th:field="*{direccion}"/>
+    
+  </div>
+  <!-- Checkbox -->
+
+
+  <!-- Submit button -->
+  <button type="submit" class="btn btn-primary btn-block mb-4" th:if="${cliente.id == null}">Agregar</button>
+   <button type="submit" class="btn btn-primary btn-block mb-4" th:unless="${cliente.id == null}">Editar</button>
+
+  <!-- Register buttons -->
+  
+</form>
+	  </div>
+	  
+	  </div>
+	</div>
+	</main>
+	<div th:replace="dashboard :: script"></div>
+</body>
+</html>
